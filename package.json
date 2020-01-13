@@ -1,0 +1,22 @@
+{
+  "name": "easier-mock",
+  "description": "mock service",
+  "author": "gongsihan",
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gggsihan/easier-mock.git"
+  },
+  "homepage": "https://github.com/gggsihan/easier-mock",
+  "bin": {
+    "mock": "dist/bin/mock.js"
+  },
+  "dependencies": {
+    "colors": "^1.4.0",
+    "http-proxy-middleware": "^0.20.0",
+    "koa": "^2.11.0",
+    "log4js": "^6.1.0",
+    "mockjs": "^1.1.0",
+    "nodemon": "^2.0.2"
+  }
+}
