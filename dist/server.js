@@ -51,7 +51,21 @@ class MockServer {
   /** 代理模式
    */
   proxyMode() {
-
+    const pro = httpProxy('/', {
+      target: this.proxy,
+      changeOrigin: true,
+      pathRewrite: {
+        '/': '/'
+      },
+      // 监听代理请求
+      onProxyReq: (proxyReq, req, res) => {
+        const reqInfo = this.setReqInfo(req)
+        console.log(`[${reqInfo.time.red}] [${reqInfo.ip.cyan}] 请求 ${reqInfo.url.magenta} ${reqInfo.ua}`)
+        this.log(` ${reqInfo.ip} 请求 ${reqInfo.url} ${reqInfo.ua}`)
+      }
+    })
+    app.use(proxy)
+    this.start()
   }
 
   /**本地模式
@@ -92,6 +106,7 @@ class MockServer {
             } else {
               ctx.response.json(response)
             }
+            await next()
           })
         })
       })
