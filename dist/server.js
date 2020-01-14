@@ -13,6 +13,13 @@ const app = new Koa()
 // 解析请求体
 app.use(bodyParser())
 
+colors.setTheme({
+  silly: 'rainbow',
+  info: 'green',
+  warn: 'yellow',
+  error: 'red'
+})
+
 class MockServer {
   constructor() {
     this.argv = process.env._argv         // 参数集合
@@ -102,6 +109,27 @@ class MockServer {
       ip: req.ip,
       ua: req.get('user-agent')
     }
+  }
+
+  start() {
+    app.listen(this.port, this.host, () => {
+      if (!this.proxy) {
+        console.log(colors.silly('****************************************************************'));
+        console.log(`  本地模式已启动 {"接口数量": ${colors.info(Object.keys(this.mocks).length)}，"端口号": ${colors.info(this.port)}}`);
+        console.log(colors.silly('****************************************************************'));
+        let errors = Object.keys(this.errorMock);
+        if (errors.length) {
+            console.log(colors.warn(`  注册失败接口 {"接口数量":${errors.length}}`));
+            errors.forEach(api => {
+                console.log(`{"接口名称": ${api}, "所在文件": ${this.errorMock[api]}}`);
+            })
+        }
+    } else {
+        console.log(colors.silly('****************************************************************'));
+        console.log(`  代理模式已启动 {"端口号": ${colors.info(this.port)}}`);
+        console.log(colors.silly('****************************************************************'));
+    }
+    })
   }
 }
 
