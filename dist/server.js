@@ -3,13 +3,14 @@ const colors = require('colors');
 const path = require('path');
 const Koa = require('koa');
 // koa-router返回的是一个函数
-const router = require('koa-router')()
+const Router = require('koa-router')
 const bodyParser = require('koa-bodyparser')
 const httpProxy = require('http-proxy-middleware');
 
 const { readFiles, getLog } = require('./utils');
 
 const app = new Koa()
+const router = new Router()
 // 解析请求体
 app.use(bodyParser())
 
@@ -100,16 +101,18 @@ class MockServer {
             if (config) {
               let { delay } = config
               setTimeout(() => {
-                ctx.response.json(response)
+                ctx.response.body = response
               }, delay);
             } else {
-              ctx.response.json(response)
+              ctx.response.body = response
             }
             await next()
           })
         })
       })
+      app.use(router.routes())
     })
+    this.start()
   }
 
   /**设置请求头信息
