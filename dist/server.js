@@ -22,11 +22,11 @@ colors.setTheme({
 
 class MockServer {
   constructor() {
-    this.argv = process.env._argv         // 参数集合
+    this.argv = JSON.parse(process.env._argv)         // 参数集合
     this.port = this.argv.port            // 端口号
     this.host = this.argv.host            // 地址
     this.proxy = this.argv.proxy          // 代理地址
-    this.mockPath = this.argv.mockPath    // mock读取地址
+    this.mockPath = path.join(process.cwd(), this.argv.mockPath)    // mock读取地址
     this.mocks = {}                       // 所有mock对象
     this.errorMock = {}                   // 注册失败的mock对象
 
@@ -40,7 +40,6 @@ class MockServer {
   }
 
   init() {
-    console.log('this is init method')
     if (this.proxy) {
       this.proxyMode()
     } else {
@@ -64,7 +63,7 @@ class MockServer {
         this.log(` ${reqInfo.ip} 请求 ${reqInfo.url} ${reqInfo.ua}`)
       }
     })
-    app.use(proxy)
+    app.use(pro)
     this.start()
   }
 
