@@ -5,7 +5,7 @@ const Koa = require('koa');
 // koa-router返回的是一个函数
 const Router = require('koa-router')
 const bodyParser = require('koa-bodyparser')
-const httpProxy = require('http-proxy-middleware');
+const httpProxy = require('koa-better-http-proxy');
 
 const { readFiles, getLog } = require('./utils');
 
@@ -51,17 +51,12 @@ class MockServer {
   /** 代理模式
    */
   proxyMode() {
-    const pro = httpProxy('/', {
-      target: this.proxy,
-      changeOrigin: true,
-      pathRewrite: {
-        '/': '/'
-      },
-      // 监听代理请求
-      onProxyReq: (proxyReq, req, res) => {
-        const reqInfo = this.setReqInfo(req)
+    const pro = httpProxy(this.proxy, {
+      proxyReqPathResolver: (ctx) => {
+        const reqInfo = this.setReqInfo(ctx.request)
         console.log(`[${reqInfo.time.red}] [${reqInfo.ip.cyan}] 请求 ${reqInfo.url.magenta} ${reqInfo.ua}`)
         this.log(` ${reqInfo.ip} 请求 ${reqInfo.url} ${reqInfo.ua}`)
+        return ctx.url
       }
     })
     app.use(pro)

@@ -1,6 +1,6 @@
 {
   "name": "easier-mock",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "mock service",
   "author": "gongsihan",
   "main": "dist/index.js",
@@ -15,10 +15,10 @@
   "dependencies": {
     "colors": "^1.4.0",
     "commander": "^4.1.0",
-    "http-proxy-middleware": "^0.20.0",
     "koa": "^2.11.0",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
+    "koa-better-http-proxy": "0.2.4",
     "log4js": "^6.1.0",
     "mockjs": "^1.1.0",
     "nodemon": "^2.0.2"
