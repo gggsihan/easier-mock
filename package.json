@@ -1,6 +1,6 @@
 {
   "name": "easier-mock",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "mock service",
   "author": "gongsihan",
   "main": "dist/index.js",
