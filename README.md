@@ -53,7 +53,7 @@ the files under the mockPath should export an object which key is api, and the v
 mockPath下的文件应导出一个对象，key为接口请求地址，value有两种类型:
 (support mockjs 支持mockjs语法)
 
--Object
+- Object
 ```js   
 module.exports = {
   "/user": {
@@ -71,7 +71,7 @@ module.exports = {
 }
 ``` 
 
--Function
+- Function
 ```js   
 module.exports = {
   "/user": function(body) {
