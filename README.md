@@ -84,6 +84,8 @@ module.exports = {
   }
 }
 ``` 
+you can only use POST request if you want to get mock data according to request parameters  
+如果你想根据请求参数来获取不同的数据，必须使用POST请求
 
 ### logPath
 you can output logs by configure logPath, default is not to output logs  
